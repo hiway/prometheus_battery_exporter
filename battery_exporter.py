@@ -62,4 +62,12 @@ def metrics():
     return Response(response, mimetype='text/plain')
 
 
-app.run(host='0.0.0.0', port=9199)
+if __name__ == '__main__':
+    import argparse
+
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument('-h', '--host', default='0.0.0.0')
+    parser.add_argument('-p', '--port', default='9199')
+    args = parser.parse_args()
+
+    app.run(host=args.host, port=args.port)
