@@ -7,11 +7,11 @@ from flask import Flask, Response
 app = Flask(__name__)
 
 PROMETHEUS_METRICS_TEMPLATE = '''\
-# HELP power_source_type Power source type: 1: AC, 2: UPS, 3: Battery.
+# HELP power_source_type Power source type: -10: AC, -11: UPS, -12: Battery.
 # TYPE power_source_type gauge
 power_source_type {power_source_type}
 
-# HELP power_warning_level Power warning level: 1: None, 2: Early (<22% battery), 3: Final (< 10 min).
+# HELP power_warning_level Power warning level: -20: None, -21: Early (<22% battery), -22: Final (< 10 min).
 # TYPE power_warning_level gauge
 power_warning_level {power_warning_level}
 
@@ -21,15 +21,15 @@ power_remaining_estimate_seconds {power_remaining_estimate}
 '''
 
 POWER_TYPE_MAP = {
-    power.POWER_TYPE_AC: 1,
-    power.POWER_TYPE_UPS: 2,
-    power.POWER_TYPE_BATTERY: 3,
+    power.POWER_TYPE_AC: -10,
+    power.POWER_TYPE_UPS: -11,
+    power.POWER_TYPE_BATTERY: -12,
 }
 
 POWER_WARNING_LEVEL_MAP = {
-    power.LOW_BATTERY_WARNING_NONE: 1,
-    power.LOW_BATTERY_WARNING_EARLY: 2,
-    power.LOW_BATTERY_WARNING_FINAL: 3,
+    power.LOW_BATTERY_WARNING_NONE: -20,
+    power.LOW_BATTERY_WARNING_EARLY: -21,
+    power.LOW_BATTERY_WARNING_FINAL: -22,
 }
 
 
