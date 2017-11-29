@@ -15,9 +15,9 @@ power_source_type {power_source_type}
 # TYPE power_warning_level gauge
 power_warning_level {power_warning_level}
 
-# HELP power_remaining_estimate_minutes: -2: Unlimited, -1: Unknown, seconds remaining otherwise. 
-# TYPE power_remaining_estimate_minutes gauge
-power_remaining_estimate_minutes {power_remaining_estimate}
+# HELP power_remaining_estimate_seconds: -2: Unlimited, -1: Unknown, seconds remaining otherwise. 
+# TYPE power_remaining_estimate_seconds gauge
+power_remaining_estimate_seconds {power_remaining_estimate}
 '''
 
 POWER_TYPE_MAP = {
@@ -39,7 +39,11 @@ def power_source_type():
 
 
 def power_remaining_estimate():
-    return power.PowerManagement().get_time_remaining_estimate()
+    estimate = power.PowerManagement().get_time_remaining_estimate()
+    if estimate < 0:
+        return estimate
+    # API returns minutes, Prometheus prefers seconds as the standard.
+    return estimate * 60
 
 
 def power_warning_level():
