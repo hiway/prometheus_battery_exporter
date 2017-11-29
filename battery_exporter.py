@@ -11,11 +11,11 @@ PROMETHEUS_METRICS_TEMPLATE = '''\
 # TYPE power_source_type gauge
 power_source_type {power_source_type}
 
-# HELP power_remaining_estimate_seconds: -2: Unlimited, -1: Unknown, seconds remaining otherwise. 
+# HELP power_warning_level Power warning level: 1: None, 2: Early (<22% battery), 3: Final (< 10 min).
 # TYPE power_warning_level gauge
 power_warning_level {power_warning_level}
 
-# HELP power_warning_level Power warning level: 1: None, 2: Early (<22% battery), 3: Final (< 10 min).
+# HELP power_remaining_estimate_seconds: -2: Unlimited, -1: Unknown, seconds remaining otherwise. 
 # TYPE power_remaining_estimate_seconds gauge
 power_remaining_estimate_seconds {power_remaining_estimate}
 '''
